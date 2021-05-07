@@ -1,4 +1,4 @@
-Remainders REST api
+<h1>Remainders REST api</h1>
 
 <h4> STEPS TO RUN LOCALLY </h4>
 <p> Create a folder named <code>config</code>and inside create a file named <code>config.env</code>and add the add the following variables </p>
