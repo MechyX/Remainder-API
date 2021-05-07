@@ -1,3 +1,6 @@
+// Remainder routes
+
+
 const express = require('express')
 const router = express.Router()
 const auth = require('../middleware/auth')
@@ -47,7 +50,7 @@ router.post('/remainder', auth, async (req,res) => {
 // @route PATCH /remainder
 router.patch('/remainder/:id', auth, async (req,res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['description', 'scheduledDateTime', 'name']
+    const allowedUpdates = ['description', 'scheduledDateTime', 'name', 'recur']
     const isValid = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValid) {

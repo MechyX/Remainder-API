@@ -1,7 +1,15 @@
+// User Model
+
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
+/*
+SCHEMA
+email, password, tokens, name
+*/
+
 
 const UserSchema = new mongoose.Schema({    
     email: {
@@ -39,12 +47,15 @@ const UserSchema = new mongoose.Schema({
         timestamps: true
 })
 
+// set foreign key and primary key with Remainder (one to many rel) 
 UserSchema.virtual('remainder', {
     ref: 'remainder',
     localField: '_id',
     foreignField: 'author'
 })
 
+
+// implicitly gets called while res.send()
 UserSchema.methods.toJSON = function() {
     const user = this
     const userObject = user.toObject()
@@ -55,6 +66,7 @@ UserSchema.methods.toJSON = function() {
     return userObject
 }
 
+// generate Auth Token
 UserSchema.methods.generateAuthToken = async function() {
     const user = this
     const token = jwt.sign({ _id: user._id.toHexString() }, process.env.JWT_SECRET)
@@ -65,6 +77,7 @@ UserSchema.methods.generateAuthToken = async function() {
     return token
 }
 
+// helper function
 UserSchema.statics.findByCredentials = async(email, password) => {
     const user = await User.findOne({ email })
     if (!user) {
@@ -79,6 +92,7 @@ UserSchema.statics.findByCredentials = async(email, password) => {
     return user
 }
 
+// middleware
 UserSchema.pre('save', async function(next) {
     const user = this
     if (user.isModified('password')) {

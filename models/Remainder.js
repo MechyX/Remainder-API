@@ -1,4 +1,12 @@
+// Remainder Model
+
 const mongoose = require('mongoose')
+
+/*
+SCHEMA
+name, description, scheduledDateTime, recur
+*/
+
 
 const RemainderSchema = new mongoose.Schema({
     name: {

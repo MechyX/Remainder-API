@@ -1,10 +1,13 @@
+/// User routes
+
+
 const express = require('express')
 const User = require('../models/users')
 const auth = require('../middleware/auth')
 
 const router = new express.Router()
 
-// route POST /Users (register)
+// @route POST /Users (register)
 router.post('/users', async(req, res) => {
     const user = new User(req.body)
     try {
@@ -16,7 +19,7 @@ router.post('/users', async(req, res) => {
     }
 })
 
-// route POST /login
+// @route POST /login
 router.post('/users/login', async(req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
@@ -28,7 +31,7 @@ router.post('/users/login', async(req, res) => {
     }
 })
 
-// route POST /logout
+// @route POST /logout
 router.post('/users/logout', auth, async(req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
