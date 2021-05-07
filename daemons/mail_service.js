@@ -22,7 +22,7 @@ const sendEmailRemainder = function (destAddr, remainder, name) {
     var body = remainder.description + "\nremainder scheduled at : " + remainder.scheduledDateTime
     html = `<h1>Hello ${name} Here is a remainder you set</h1> <p>${body}</p> <p> Powered By RemaindersApp </p>`
     var mailOptions = {
-        from: "zmechy2001@gmail.com",
+        from: process.env.SERVICE_EMAIL,
         to: destAddr,
         subject: mailSubject ,
         html : html
